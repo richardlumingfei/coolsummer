@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'django1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'clothesweb',
+        'NAME': 'ignb',
         'USER': 'root',
         'PASSWORD': '195613',
         'HOST': '127.0.0.1',

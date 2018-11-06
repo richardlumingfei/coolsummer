@@ -8,14 +8,14 @@
     <link href="{% static  'css/Han Yi Han.css' %}" type="text/css" rel="stylesheet" />
     <link href="{% static 'css/register.css' %}" type="text/css" rel="stylesheet" />
     <link href="{% static 'css/fixed_box.css' %}" type="text/css" rel="stylesheet" />
-
+    <script src="{% static 'js/register.js' %}"></script>
 {#    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>#}
-{#    <script src="{% static 'js/jquery-1.12.3.js' %}"></script>#}
-{#    <script src="{% static 'js/jquery.cookie.js'%}"></script>#}
-{#    <script src="{% static 'js/register.js' %}"></script>#}
-{#    <script src="{% static 'js/pull_list.js' %}"></script>#}
-{#    <script src="{% static 'js/home.js' %}"></script>#}
-{#    <script src="{% static 'js/test.js' %}"></script>#}
+    <script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+    <script src="{% static 'js/jquery.cookie.js'%}"></script>
+    <script src="{% static 'js/register.js' %}"></script>
+    <script src="{% static 'js/pull_list.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+
 
 </head>
 
@@ -35,7 +35,7 @@
                 <li><a href="#">您好,欢迎光临韩都衣舍！</a></li>
                 <li><a href="/entry/" target="_blank">登录</a></li>
                 <li><a href="/register/" target="_blank" style="color: #C80A28">注册</a></li>
-                <li><a href="/cart/" target="_blank">购物车</a></li>
+                <li><a href="{% url 'app:cart' %}" target="_blank">购物车</a></li>
             </ul>
             <ul id="H_top_2">
                 <li><a href="#">在线客服</a></li>
@@ -196,11 +196,11 @@
        <form action="/register/" method="post">
            {% csrf_token %}
         <ul>
-            <li><span>用户手机号:</span><input id="name" type="text" placeholder="请输入用户名"><p class="p1">用户名为手机号</p></li>
-            <li><span>密码:</span><input id="pwd" type="password" placeholder="请输入密码"><p class="p2">密码只能为数字、字母、下划线</p></li>
-            <li><span>确认密码:</span><input id="pwd_again" type="password" placeholder="请再次输入密码"><p class="p3"></p></li>
+            <li><span>用户手机号:</span><input id="name" type="text" placeholder="请输入用户名" name="name"><p class="p1">用户名为手机号</p></li>
+            <li><span>密码:</span><input id="pwd" type="password" placeholder="请输入密码" name="pwd"><p class="p2">密码只能为数字、字母、下划线</p></li>
+            <li><span>确认密码:</span><input id="pwd_again" type="password" placeholder="请再次输入密码" name="repeatpwd"><p class="p3"></p></li>
             <li><span>验证码:</span><input id="code" type="text"><div class="identifying_code">2k8P</div><p class="p4"></p></li>
-            <li><button id="btn">注册</button></li>
+            <li><input id="btn" type="submit" value="注册"/></li>
         </ul>
        </form>
     </div>

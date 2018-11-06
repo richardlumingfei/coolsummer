@@ -4,7 +4,7 @@
 
 $(function(){
 
-    // 用户
+    // 用户(手机号)验证
     $("#name").blur(function(){
         var tel=$(this).val();
         if(/^1[3578]\d{9}$/.test(tel)){
@@ -13,7 +13,19 @@ $(function(){
             $(".p1").html("用户名不正确");
         }
     })
-    // 密码�����
+    $("#name").blur(function () {
+        $.get('/checkaccount/', {'name':$(this).val()},function (response) {
+            console.log(responseonse)
+            if (response.status == 1)
+                {  // 可用
+                    $(".p1").html("可以注册的手机号");
+                }
+                else
+                {    // 不可用
+                    $(".p1").html("该手机号已被注册");
+                }
+            })
+    // 密码
     $("#pwd").blur(function(){
         var pas=$(this).val();
         if(/^[0-9a-zA-Z_]{8,15}$/.test(pas)){
@@ -72,16 +84,6 @@ $(function(){
         }
     })
 
-    //   注 册
-    $("#btn").click(function(){
-        var users = $.cookie("users") ? JSON.parse($.cookie("users")) : [];
-        //
-        for (var i=0; i<users.length; i++) {
-            if ( users[i].name == $("#name").val() ) {
-                console.log("用户名已存在! 不能注册相同的用户");
-                return;
-            }
-        }
 
         if($("#name").val().length <= 0){
             $(".p1").html("用户不能为空");
@@ -96,17 +98,17 @@ $(function(){
             return;
         }
 
-        var user = {
-            name: $("#name").val(),
-            pwd: $("#pwd").val(),
-            pwd_again:$("#pwd_again").val(),
-            code:$("#code").val()
-        }
-        users.push(user);
-
-        $.cookie("users", JSON.stringify(users), {expires:22, path:"/"});
-        console.log( $.cookie("users") );
-        window.location.href="entry.html";
+        // var user = {
+        //     name: $("#name").val(),
+        //     pwd: $("#pwd").val(),
+        //     pwd_again:$("#pwd_again").val(),
+        //     code:$("#code").val()
+        // }
+        // users.push(user);
+        //
+        // $.cookie("users", JSON.stringify(users), {expires:22, path:"/"});
+        // console.log( $.cookie("users") );
+        // window.location.href="entry.html";
     })
 
 })

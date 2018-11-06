@@ -1,3 +1,7 @@
+import hashlib
+import uuid
+
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -25,26 +29,49 @@ def goods(request):
     #商品页面
 
     #注册
+def genarate_password(param):
+    sha = hashlib.sha256()
+    sha.update(param.encode('utf-8'))
+    return sha.hexdigest()
+
 def register(request):
-    if request.method == 'GET': # 获取注册页面
+    if request.method == 'GET':
         return render(request, 'register.html')
-    elif request.method == 'POST':  # 注册操作
-        # 获取客户端传入的数据
-        name = request.POST.get('name')
-        password = request.POST.get('pwd')
-        print(name,password)
+    elif request.method == 'POST':
+        # try:
+            user = Users()
+            user.name = request.POST.get('name')
+            user.password = genarate_password(request.POST.get('pwd'))
 
-        # 存入数据库
-        users = Users()
-        users.name = name
-        users.password = password
-        users.save()
 
-        # 重定向首页
-        response = redirect('Handu.html')
+            user.token = str(uuid.uuid5(uuid.uuid4(), 'register'))
 
-        # 状态保持
-        response.set_cookie('username', name)
+            user.save()
 
-        #return HttpResponse('注册成功')
-        return response
+            # 状态保持
+            request.session['token'] = user.token
+
+            # 重定向
+            return redirect('app:index')
+        # except:
+        #      return HttpResponse('注册失败(该用户已被注册)')
+def checkaccount(request):
+    name = request.GET.get('name')
+
+    responseData = {
+        'msg': '账号可用',
+        'status': 1 # 1标识可用，-1标识不可用
+    }
+
+    try:
+        user = Users.objects.get(name=name)
+        responseData['msg'] = '账号已被占用'
+        responseData['status'] = -1
+        return JsonResponse(responseData)
+    except:
+        return JsonResponse(responseData)
+
+
+# def logout(request):
+#     request.session.flush()
+#     return redirect('axf:mine')
