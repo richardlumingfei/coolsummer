@@ -1,4 +1,5 @@
 import hashlib
+import time
 import uuid
 
 from django.http import HttpResponse, JsonResponse
@@ -52,10 +53,13 @@ def register(request):
             request.session['token'] = user.token
 
             # 重定向
-            return redirect('app:index')
+            #HttpResponse('注册成功,正在为您跳转至登录页面......')
+            # time.sleep(1)
+            return redirect('app:entry')
+
         # except:
         #      return HttpResponse('注册失败(该用户已被注册)')
-def checkaccount(request):
+def checkname(request):
     name = request.GET.get('name')
 
     responseData = {
@@ -65,13 +69,13 @@ def checkaccount(request):
 
     try:
         user = Users.objects.get(name=name)
-        responseData['msg'] = '账号已被占用'
+        responseData['msg'] = '该手机号已被使用'
         responseData['status'] = -1
         return JsonResponse(responseData)
     except:
         return JsonResponse(responseData)
 
 
-# def logout(request):
-#     request.session.flush()
-#     return redirect('axf:mine')
+def logout(request):
+    request.session.flush()
+    return redirect('app:index')

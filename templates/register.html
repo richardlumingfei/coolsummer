@@ -196,11 +196,11 @@
        <form action="/register/" method="post">
            {% csrf_token %}
         <ul>
-            <li><span>用户手机号:</span><input id="name" type="text" placeholder="请输入用户名" name="name"><p class="p1">用户名为手机号</p></li>
-            <li><span>密码:</span><input id="pwd" type="password" placeholder="请输入密码" name="pwd"><p class="p2">密码只能为数字、字母、下划线</p></li>
-            <li><span>确认密码:</span><input id="pwd_again" type="password" placeholder="请再次输入密码" name="repeatpwd"><p class="p3"></p></li>
-            <li><span>验证码:</span><input id="code" type="text"><div class="identifying_code">2k8P</div><p class="p4"></p></li>
-            <li><input id="btn" type="submit" value="注册"/></li>
+            <li><span>用户手机号:</span><input id="name" type="text" placeholder="请输入用户名" name="name" required="required"><p class="p1">用户名为手机号</p></li>
+            <li><span>密码:</span><input id="pwd" type="password" placeholder="请输入密码" name="pwd" required="required"><p class="p2">密码只能为数字、字母、下划线</p></li>
+            <li><span>确认密码:</span><input id="pwd_again" type="password" placeholder="请再次输入密码" name="repeatpwd" required="required"><p class="p3"></p></li>
+            <li><span>验证码:</span><input id="code" type="text" required="required"><div class="identifying_code">2k8P</div><p class="p4"></p></li>
+            <li><input type="submit" value="注册" id="btn"></li>
         </ul>
        </form>
     </div>

@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^entry/$',views.entry,name='entry'),
     url(r'^goods/$',views.goods),
     url(r'^goods/(\d+)/$',views.goods,name='goods'),
+    url(r'^checkname/$', views.checkname, name='checkname'), # 账号验证
 ]
 
