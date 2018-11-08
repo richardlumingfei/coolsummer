@@ -41,27 +41,6 @@ $(function(){
         }
 
         //判断是否存在该用户
-        var users = $.cookie("users");
-        console.log(users)
-        if (users) {
-            users = JSON.parse(users);   // cookie中的所有注册过的用户
-
-            var isExists = false; //表示是否存在该用户
-            for (var i=0; i<users.length; i++) {
-                // 匹配用户名和密码是否都一致
-                console.log($("#name").val());
-                if ( users[i].name == $("#name").val() && users[i].pwd == $("#password").val() ) {
-                    alert(" 登录成功!");
-                    window.location.href="Handu.html";
-                    isExists = true;
-                }
-            }
-            if (!isExists) {
-                $(".login_error").html("用户名或密码错误, 请重新输入!");
-            }
-        }else {
-            $(".login_error").html("不存在该用户, 请先注册!");
-        }
 
     })
 })

@@ -21,9 +21,6 @@ def cart(request):
     return render(request,'cart.html')
     #购物车
 
-def entry(request):
-    return render(request,'entry.html')
-    #登录界面
 
 def goods(request):
     return  render(request,'goods_1.html')
@@ -79,3 +76,25 @@ def checkname(request):
 def logout(request):
     request.session.flush()
     return redirect('app:index')
+
+
+def entry(request):
+    if request.method == 'GET':
+        return render(request, 'entry.html')
+    elif request.method == 'POST':
+        name = request.POST.get('name')
+        password = request.POST.get('pwd')
+
+        try:
+            user = Users.objects.get(name=name)
+            if user.password == genarate_password(password):    # 登录成功
+
+                # 更新token
+                user.token = str(uuid.uuid5(uuid.uuid4(), 'entry'))
+                user.save()
+                request.session['token'] = user.token
+                return redirect('app:index')
+            else:   # 登录失败
+                return render(request, 'entry.html', context={'passwdErr': '密码错误!'})
+        except:
+            return render(request, 'entry.html', context={'nameErr':'账号不存在!'})
